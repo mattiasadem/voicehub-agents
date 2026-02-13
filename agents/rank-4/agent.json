@@ -1,0 +1,24 @@
+{
+  "id": "rank-4",
+  "name": "Rank-4 (SEO Analyst)",
+  "description": "Tracks keyword rankings, backlinks, alerts on drops",
+  "model": "kimi",
+  "schedule": "0 6 * * 1,4",
+  "timezone": "Europe/Berlin",
+  "timeout": 300,
+  "enabled": false,
+  "keywords": [
+    "ai receptionist",
+    "missed call solutions",
+    "virtual phone assistant",
+    "call handling service",
+    "voice ai for business"
+  ],
+  "track": [
+    "rankings",
+    "backlinks",
+    "featured_snippets",
+    "competitor_spots"
+  ],
+  "output": "/data/.openclaw/workspace/voicehub-agents/memory/rank-4/"
+}
