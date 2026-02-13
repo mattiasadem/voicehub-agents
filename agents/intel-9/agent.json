@@ -1,25 +1,38 @@
 {
   "id": "intel-9",
-  "name": "Intel-9 (Competitive Intelligence)",
-  "description": "Monitors competitors - blogs, pricing, features, alerts on changes",
+  "name": "Competitive Intelligence Agent",
+  "description": "Monitors competitors, tracks pricing/features, generates battlecards",
   "model": "kimi",
-  "schedule": "0 7 * * *",
+  "schedule": "0 9 * * *",
   "timezone": "Europe/Berlin",
   "timeout": 300,
   "enabled": false,
   "competitors": [
     "smith.ai",
-    "answerconnect.com",
-    "patlive.com",
-    "nexa.com"
+    "nexa.ai",
+    "olo.com",
+    "synthetix.com"
   ],
-  "track": [
-    "pricing_changes",
-    "new_features",
-    "blog_posts",
-    "landing_page_updates",
-    "reviews_sentiment"
-  ],
-  "output": "/data/.openclaw/workspace/voicehub-agents/memory/intel-9/",
-  "alert_threshold": "significant"
+  "tracking": {
+    "pricing_pages": true,
+    "feature_pages": true,
+    "blog_posts": true,
+    "press_releases": true
+  },
+  "alerts": {
+    "pricing_change": { "priority": "high", "notify": ["founder", "sales"] },
+    "new_feature": { "priority": "medium", "notify": ["founder", "product"] },
+    "funding_news": { "priority": "high", "notify": ["founder"] }
+  },
+  "outputs": {
+    "battlecards": "memory/intel-9/battlecards/",
+    "alerts": "memory/intel-9/alerts/",
+    "weekly_digest": "memory/intel-9/digests/"
+  },
+  "battlecard_template": [
+    "pricing_comparison",
+    "feature_matrix",
+    "win_loss_talking_points",
+    "objection_handling"
+  ]
 }
