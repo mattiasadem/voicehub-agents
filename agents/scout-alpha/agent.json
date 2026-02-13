@@ -1,0 +1,19 @@
+{
+  "id": "scout-alpha",
+  "name": "Lead Scout",
+  "description": "Finds high-intent prospects from job boards, Reddit, Twitter",
+  "model": "kimi",
+  "schedule": "0 */4 * * *",
+  "timezone": "Europe/Berlin",
+  "timeout": 600,
+  "enabled": false,
+  "sources": [
+    "reddit:r/smallbusiness",
+    "reddit:r/entrepreneur", 
+    "twitter:search",
+    "indeed:jobs"
+  ],
+  "keywords": ["missed calls", "receptionist", "call handling", "hiring receptionist"],
+  "output": "/data/.openclaw/workspace/voicehub-agents/memory/scout-alpha/",
+  "daily_target": 10
+}
