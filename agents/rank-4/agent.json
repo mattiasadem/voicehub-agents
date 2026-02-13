@@ -1,24 +1,39 @@
 {
   "id": "rank-4",
-  "name": "Rank-4 (SEO Analyst)",
-  "description": "Tracks keyword rankings, backlinks, alerts on drops",
+  "name": "SEO Rank Tracker",
+  "description": "Tracks keyword rankings, monitors backlinks, alerts on SEO changes",
   "model": "kimi",
-  "schedule": "0 6 * * 1,4",
+  "schedule": "0 6 * * *",
   "timezone": "Europe/Berlin",
   "timeout": 300,
   "enabled": false,
-  "keywords": [
-    "ai receptionist",
-    "missed call solutions",
-    "virtual phone assistant",
-    "call handling service",
-    "voice ai for business"
+  "target_keywords": [
+    "missed call text back",
+    "ai receptionist for smes",
+    "voice ai appointment booking",
+    "after hours call handling",
+    "lead capture automation"
   ],
-  "track": [
-    "rankings",
-    "backlinks",
-    "featured_snippets",
-    "competitor_spots"
+  "domains": ["voicehub.x-and.agency"],
+  "competitors": [
+    "smith.ai",
+    "nexa.ai"
   ],
-  "output": "/data/.openclaw/workspace/voicehub-agents/memory/rank-4/"
+  "tracking": {
+    "rankings": ["google", "bing"],
+    "backlinks": true,
+    "core_web_vitals": true,
+    "page_speed": true
+  },
+  "alerts": {
+    "rank_drop": { "threshold": 3, "positions": "notify" },
+    "rank_gain": { "threshold": 3, "positions": "celebrate" },
+    "new_backlink": { "priority": "medium" },
+    "lost_backlink": { "priority": "high" }
+  },
+  "outputs": {
+    "rankings": "memory/rank-4/rankings.json",
+    "alerts": "memory/rank-4/alerts/",
+    "weekly_report": "memory/rank-4/reports/"
+  }
 }
