@@ -1,27 +1,32 @@
 {
   "id": "health-5",
-  "name": "Health-5 (CS Manager)",
-  "description": "Monitors customer health, predicts churn, triggers interventions",
+  "name": "Customer Success Health Agent",
+  "description": "Monitors customer health, predicts churn, triggers re-engagement",
   "model": "kimi",
   "schedule": "0 10 * * *",
   "timezone": "Europe/Berlin",
   "timeout": 300,
   "enabled": false,
-  "metrics": [
-    "usage_drop_30pct",
-    "login_frequency",
-    "api_calls_trend",
-    "support_tickets"
-  ],
-  "alerts": {
-    "at_risk": "red",
-    "needs_attention": "yellow",
-    "healthy": "green"
+  "inputs": {
+    "usage_data": "voicehub.x-and/analytics/usage",
+    "support_tickets": "voicehub.x-and/support/tickets",
+    "billing_data": "voicehub.x-and/billing/subscriptions"
   },
-  "actions": [
-    "auto_email_checkin",
-    "schedule_call",
-    "escalate_to_human"
-  ],
-  "output": "/data/.openclaw/workspace/voicehub-agents/memory/health-5/"
+  "health_metrics": {
+    "usage_trend": { "weight": 0.4, "threshold": -0.3 },
+    "days_since_login": { "weight": 0.3, "threshold": 7 },
+    "support_tickets": { "weight": 0.2, "threshold": 3 },
+    "payment_status": { "weight": 0.1, "threshold": "overdue" }
+  },
+  "risk_levels": ["healthy", "at_risk", "critical", "churned"],
+  "actions": {
+    "at_risk": { "type": "email", "template": "check_in_v1" },
+    "critical": { "type": "alert", "notify": ["cs-team", "founder"] },
+    "churned": { "type": "exit_interview", "template": "why_leave" }
+  },
+  "outputs": {
+    "health_scores": "memory/health-5/health-scores.json",
+    "alerts": "memory/health-5/alerts/",
+    "weekly_report": "memory/health-5/reports/"
+  }
 }
