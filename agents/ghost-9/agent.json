@@ -1,12 +1,17 @@
 {
   "id": "ghost-9",
   "name": "Social Media Ghost",
-  "description": "LinkedIn and Twitter ghost writer - posts daily, engages, builds founder brand",
+  "description": "LinkedIn and Twitter ghost writer - posts daily, engages, builds founder brand using social-content and content-strategy skills",
   "model": "kimi",
   "schedule": "0 8 * * *",
   "timezone": "Europe/Berlin",
   "timeout": 300,
   "enabled": false,
+  "skills": [
+    "social-content",
+    "content-strategy",
+    "copywriting"
+  ],
   "platforms": ["linkedin", "twitter"],
   "content_sources": [
     "voicehub.x-and/blog",
@@ -28,5 +33,37 @@
     "analytics": "memory/ghost-9/analytics/"
   },
   "manual_approval": false,
-  "auto_post": false
+  "auto_post": false,
+  "workflow": [
+    {
+      "step": 1,
+      "action": "load_skill",
+      "skill": "social-content",
+      "task": "Load social content strategy"
+    },
+    {
+      "step": 2,
+      "action": "load_skill",
+      "skill": "content-strategy",
+      "task": "Identify shareable angles from blog content"
+    },
+    {
+      "step": 3,
+      "action": "source_content",
+      "sources": ["blog", "industry_news", "case_studies"]
+    },
+    {
+      "step": 4,
+      "action": "create",
+      "use_skill": "copywriting",
+      "platforms": ["linkedin", "twitter"],
+      "count": 3
+    },
+    {
+      "step": 5,
+      "action": "save",
+      "path": "memory/ghost-9/drafts/",
+      "format": "md"
+    }
+  ]
 }
