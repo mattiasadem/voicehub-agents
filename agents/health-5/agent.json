@@ -1,12 +1,17 @@
 {
   "id": "health-5",
   "name": "Customer Success Health Agent",
-  "description": "Monitors customer health, predicts churn, triggers re-engagement",
+  "description": "Monitors customer health, predicts churn, triggers re-engagement using analytics-tracking skill",
   "model": "kimi",
   "schedule": "0 10 * * *",
   "timezone": "Europe/Berlin",
   "timeout": 300,
   "enabled": false,
+  "skills": [
+    "analytics-tracking",
+    "email-sequence",
+    "onboarding-cro"
+  ],
   "inputs": {
     "usage_data": "voicehub.x-and/analytics/usage",
     "support_tickets": "voicehub.x-and/support/tickets",
@@ -15,18 +20,64 @@
   "health_metrics": {
     "usage_trend": { "weight": 0.4, "threshold": -0.3 },
     "days_since_login": { "weight": 0.3, "threshold": 7 },
-    "support_tickets": { "weight": 0.2, "threshold": 3 },
-    "payment_status": { "weight": 0.1, "threshold": "overdue" }
+    "api_calls_per_day": { "weight": 0.15, "threshold": 10 },
+    "support_tickets": { "weight": 0.1, "threshold": 3 },
+    "payment_status": { "weight": 0.05, "threshold": "overdue" }
   },
   "risk_levels": ["healthy", "at_risk", "critical", "churned"],
   "actions": {
-    "at_risk": { "type": "email", "template": "check_in_v1" },
-    "critical": { "type": "alert", "notify": ["cs-team", "founder"] },
-    "churned": { "type": "exit_interview", "template": "why_leave" }
+    "at_risk": {
+      "type": "email",
+      "use_skill": "email-sequence",
+      "template": "check_in_v1",
+      "manual_review": false
+    },
+    "critical": {
+      "type": "alert",
+      "notify": ["cs-team", "founder"],
+      "escalate": true
+    },
+    "churned": {
+      "type": "exit_interview",
+      "send_survey": true,
+      "enrich_feedback": true
+    }
   },
   "outputs": {
     "health_scores": "memory/health-5/health-scores.json",
     "alerts": "memory/health-5/alerts/",
     "weekly_report": "memory/health-5/reports/"
-  }
+  },
+  "workflow": [
+    {
+      "step": 1,
+      "action": "load_skill",
+      "skill": "analytics-tracking",
+      "task": "Load customer health scoring framework"
+    },
+    {
+      "step": 2,
+      "action": "fetch_data",
+      "sources": ["usage", "billing", "support"]
+    },
+    {
+      "step": 3,
+      "action": "score",
+      "method": "weighted_risk_model",
+      "thresholds": ["healthy", "at_risk", "critical", "churned"]
+    },
+    {
+      "step": 4,
+      "action": "trigger_actions",
+      "at_risk": "send_email",
+      "critical": "alert_team",
+      "churned": "exit_interview"
+    },
+    {
+      "step": 5,
+      "action": "report",
+      "save": "memory/health-5/reports/",
+      "notify": "weekly_summary"
+    }
+  ]
 }
