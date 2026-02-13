@@ -1,12 +1,16 @@
 {
   "id": "reach-3",
   "name": "SDR Outreach Agent",
-  "description": "Automated Sales Development Rep - sends cold emails, follows up, books demos",
+  "description": "Automated Sales Development Rep - sends cold emails, follows up, books demos using email-sequence skill",
   "model": "kimi",
   "schedule": "0 9,15 * * 1-5",
   "timezone": "Europe/Berlin",
   "timeout": 300,
   "enabled": false,
+  "skills": [
+    "email-sequence",
+    "copywriting"
+  ],
   "inputs": {
     "prospect_list": "memory/scout-alpha/prospects.json",
     "sequence": "3-touch",
@@ -19,9 +23,39 @@
   },
   "daily_limit": 20,
   "sequence": [
-    { "day": 0, "subject": "Quick question about {{company}} calls", "template": "personalized_v1" },
+    { "day": 0, "subject": "Quick question about {{company}} calls", "template": "cold_outreach_sme" },
     { "day": 3, "subject": "Re: {{company}} - one fix for missed calls", "template": "follow_up_v1" },
     { "day": 7, "subject": "Last try - VoiceHub for {{company}}", "template": "break_up_v1" }
   ],
-  "manual_approval": true
+  "manual_approval": true,
+  "workflow": [
+    {
+      "step": 1,
+      "action": "load_skill",
+      "skill": "email-sequence",
+      "task": "Load 3-touch sequence templates"
+    },
+    {
+      "step": 2,
+      "action": "load_prospects",
+      "source": "scout-alpha",
+      "filter": "hot,warm"
+    },
+    {
+      "step": 3,
+      "action": "personalize",
+      "use_skill": "copywriting",
+      "fields": ["company", "pain_point", "trigger"]
+    },
+    {
+      "step": 4,
+      "action": "draft",
+      "output": "memory/reach-3/drafts/"
+    },
+    {
+      "step": 5,
+      "action": "notify",
+      "message": "Drafts ready for approval"
+    }
+  ]
 }
