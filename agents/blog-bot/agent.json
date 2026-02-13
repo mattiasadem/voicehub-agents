@@ -1,0 +1,20 @@
+{
+  "id": "blog-bot",
+  "name": "Blog Content Agent",
+  "description": "Generates daily SEO blog posts for VoiceHub",
+  "model": "kimi",
+  "schedule": "0 8 * * *",
+  "timezone": "Europe/Berlin",
+  "timeout": 900,
+  "enabled": true,
+  "inputs": {
+    "topic": "auto",
+    "word_count": 1100,
+    "strict_quality": true
+  },
+  "outputs": {
+    "post": "data/generated-blog-posts.json",
+    "image": "public/blog/"
+  },
+  "repo": "/data/.openclaw/workspace/voicehub.x-and"
+}
