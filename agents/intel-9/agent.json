@@ -1,28 +1,35 @@
 {
   "id": "intel-9",
   "name": "Competitive Intelligence Agent",
-  "description": "Monitors competitors, tracks pricing/features, generates battlecards",
+  "description": "Monitors competitors, tracks pricing/features, generates battlecards using competitor-alternatives and content-strategy skills",
   "model": "kimi",
   "schedule": "0 9 * * *",
   "timezone": "Europe/Berlin",
   "timeout": 300,
   "enabled": false,
+  "skills": [
+    "competitor-alternatives",
+    "content-strategy",
+    "analytics-tracking"
+  ],
   "competitors": [
-    "smith.ai",
-    "nexa.ai",
-    "olo.com",
-    "synthetix.com"
+    { "name": "smith.ai", "monitor": ["pricing", "features", "blog"] },
+    { "name": "nexa.ai", "monitor": ["pricing", "features", "blog"] },
+    { "name": "olo.com", "monitor": ["pricing", "features", "press"] },
+    { "name": "synthetix.com", "monitor": ["pricing", "features", "blog"] }
   ],
   "tracking": {
     "pricing_pages": true,
     "feature_pages": true,
     "blog_posts": true,
-    "press_releases": true
+    "press_releases": true,
+    "job_postings": true
   },
   "alerts": {
     "pricing_change": { "priority": "high", "notify": ["founder", "sales"] },
     "new_feature": { "priority": "medium", "notify": ["founder", "product"] },
-    "funding_news": { "priority": "high", "notify": ["founder"] }
+    "funding_news": { "priority": "high", "notify": ["founder"] },
+    "pricing": { "priority": "critical", "notify": ["founder", "sales", "marketing"] }
   },
   "outputs": {
     "battlecards": "memory/intel-9/battlecards/",
@@ -34,5 +41,42 @@
     "feature_matrix",
     "win_loss_talking_points",
     "objection_handling"
+  ],
+  "workflow": [
+    {
+      "step": 1,
+      "action": "load_skill",
+      "skill": "competitor-alternatives",
+      "task": "Load competitor analysis framework"
+    },
+    {
+      "step": 2,
+      "action": "scrape",
+      "targets": ["pricing", "features", "blog", "press"],
+      "frequency": "daily"
+    },
+    {
+      "step": 3,
+      "action": "detect_changes",
+      "compare": "previous_snapshot",
+      "threshold": "significant"
+    },
+    {
+      "step": 4,
+      "action": "generate_battlecard",
+      "use_skill": "content-strategy",
+      "for": "each_competitor"
+    },
+    {
+      "step": 5,
+      "action": "alert",
+      "if": "pricing_change OR new_feature",
+      "priority": "high"
+    },
+    {
+      "step": 6,
+      "action": "report",
+      "save": "memory/intel-9/digests/"
+    }
   ]
 }
