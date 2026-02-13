@@ -1,39 +1,14 @@
 {
   "id": "revbot",
   "name": "Revenue Operations Analyst",
-  "description": "Weekly revenue reports, CAC/LTV analysis, cohort tracking, forecasting",
+  "description": "Weekly revenue reports, CAC/LTV analysis, cohort tracking",
   "model": "kimi",
   "schedule": "0 9 * * 1",
   "timezone": "Europe/Berlin",
   "timeout": 300,
   "enabled": false,
-  "metrics": [
-    "mrr",
-    "arr",
-    "cac",
-    "ltv",
-    "ltv_cac_ratio",
-    "churn_rate",
-    "expansion_revenue",
-    "net_revenue_retention"
-  ],
-  "reports": {
-    "weekly": "mrr_movements,churn_analysis,top_accounts",
-    "monthly": "cohort_analysis,forecast_update",
-    "quarterly": "board_deck,okr_progress"
-  },
-  "inputs": {
-    "billing_data": "voicehub.x-and/billing/",
-    "usage_data": "voicehub.x-and/analytics/",
-    "crm_data": "hubspot/salesforce"
-  },
-  "alerts": {
-    "churn_spike": { "threshold": 0.05, "notify": ["founder", "cs"] },
-    "cac_increase": { "threshold": 1.2, "notify": ["founder", "marketing"] },
-    "ltv_drop": { "threshold": 0.9, "notify": ["founder"] }
-  },
-  "outputs": {
-    "reports": "memory/revbot/reports/",
-    "dashboard_data": "memory/revbot/dashboard.json"
-  }
+  "skills": ["analytics-tracking", "pricing-strategy", "ab-test-setup"],
+  "metrics": ["mrr", "arr", "cac", "ltv", "ltv_cac_ratio", "churn_rate", "nrr"],
+  "reports": { "weekly": "mrr,churn,top", "monthly": "cohort,forecast" },
+  "outputs": { "reports": "memory/revbot/reports/", "dashboard": "memory/revbot/dashboard.json" }
 }
