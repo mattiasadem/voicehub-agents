@@ -1,0 +1,24 @@
+{
+  "id": "ghost-9",
+  "name": "Ghost-9 (Social Media Manager)",
+  "description": "LinkedIn/Twitter ghost - posts daily, engages, builds founder brand",
+  "model": "kimi",
+  "schedule": "0 8,12,16 * * 1-5",
+  "timezone": "Europe/Berlin",
+  "timeout": 180,
+  "enabled": false,
+  "platforms": ["linkedin", "twitter"],
+  "content_types": [
+    "voice_tips",
+    "customer_wins",
+    "industry_insights",
+    "demo_clips"
+  ],
+  "engagement": {
+    "auto_comment": true,
+    "reply_mentions": true,
+    "like_relevant": true
+  },
+  "output": "/data/.openclaw/workspace/voicehub-agents/memory/ghost-9/",
+  "daily_posts": 3
+}
