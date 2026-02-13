@@ -1,24 +1,32 @@
 {
   "id": "ghost-9",
-  "name": "Ghost-9 (Social Media Manager)",
-  "description": "LinkedIn/Twitter ghost - posts daily, engages, builds founder brand",
+  "name": "Social Media Ghost",
+  "description": "LinkedIn and Twitter ghost writer - posts daily, engages, builds founder brand",
   "model": "kimi",
-  "schedule": "0 8,12,16 * * 1-5",
+  "schedule": "0 8 * * *",
   "timezone": "Europe/Berlin",
-  "timeout": 180,
+  "timeout": 300,
   "enabled": false,
   "platforms": ["linkedin", "twitter"],
-  "content_types": [
-    "voice_tips",
-    "customer_wins",
-    "industry_insights",
-    "demo_clips"
+  "content_sources": [
+    "voicehub.x-and/blog",
+    "memory/blog-bot/latest-posts",
+    "industry_news"
   ],
-  "engagement": {
-    "auto_comment": true,
-    "reply_mentions": true,
-    "like_relevant": true
+  "post_types": {
+    "linkedin": ["voice_tip", "case_study_snippet", "question", "industry_insight"],
+    "twitter": ["thread", "single_tip", "poll"]
   },
-  "output": "/data/.openclaw/workspace/voicehub-agents/memory/ghost-9/",
-  "daily_posts": 3
+  "daily_schedule": {
+    "08:00": "linkedin_post",
+    "14:00": "twitter_thread",
+    "18:00": "engagement_check"
+  },
+  "outputs": {
+    "drafts": "memory/ghost-9/drafts/",
+    "posted": "memory/ghost-9/posted/",
+    "analytics": "memory/ghost-9/analytics/"
+  },
+  "manual_approval": false,
+  "auto_post": false
 }
