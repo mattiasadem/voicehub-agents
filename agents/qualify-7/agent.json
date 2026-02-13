@@ -1,26 +1,41 @@
 {
   "id": "qualify-7",
-  "name": "Qualify-7 (Lead Qualifier)",
-  "description": "Scores and enriches leads - Clearbit, Hunter, intent scoring",
+  "name": "Lead Qualifier Bot",
+  "description": "Auto-qualifies inbound leads using BANT + intent scoring",
   "model": "kimi",
-  "schedule": "*/30 * * * *",
+  "schedule": "webhook",
   "timezone": "Europe/Berlin",
   "timeout": 120,
   "enabled": false,
-  "inputs": {
-    "source": "scout-alpha",
-    "webhook": "inbound_leads"
-  },
-  "enrichment": [
-    "clearbit",
-    "hunter.io",
-    "website_analysis"
+  "triggers": [
+    "form_submission",
+    "demo_request",
+    "email_inquiry",
+    "calendly_booking"
   ],
-  "scoring": {
-    "company_size": 20,
-    "intent_signals": 30,
-    "contact_quality": 25,
-    "timing": 25
+  "qualification_criteria": {
+    "budget": { "question": "What's your monthly call volume?", "weight": 0.25 },
+    "authority": { "question": "Are you the decision maker?", "weight": 0.25 },
+    "need": { "question": "What's your biggest call handling pain?", "weight": 0.3 },
+    "timeline": { "question": "When do you need this solved?", "weight": 0.2 }
   },
-  "output": "/data/.openclaw/workspace/voicehub-agents/memory/qualify-7/"
+  "scoring": {
+    "hot": 80,
+    "warm": 60,
+    "cold": 40
+  },
+  "routing": {
+    "hot": "reach-3@priority",
+    "warm": "reach-3@standard",
+    "cold": "nurture_sequence"
+  },
+  "enrichment": {
+    "clearbit": true,
+    "website": true,
+    "company_size": true
+  },
+  "outputs": {
+    "qualified_leads": "memory/qualify-7/leads/",
+    "scores": "memory/qualify-7/scores.json"
+  }
 }
