@@ -7,35 +7,15 @@
   "timezone": "Europe/Berlin",
   "timeout": 120,
   "enabled": false,
-  "triggers": [
-    "form_submission",
-    "demo_request",
-    "email_inquiry",
-    "calendly_booking"
-  ],
+  "skills": ["email-sequence", "analytics-tracking"],
+  "triggers": ["form_submission", "demo_request", "email_inquiry"],
   "qualification_criteria": {
-    "budget": { "question": "What's your monthly call volume?", "weight": 0.25 },
-    "authority": { "question": "Are you the decision maker?", "weight": 0.25 },
-    "need": { "question": "What's your biggest call handling pain?", "weight": 0.3 },
-    "timeline": { "question": "When do you need this solved?", "weight": 0.2 }
+    "budget": { "question": "Monthly call volume?", "weight": 0.25 },
+    "authority": { "question": "Decision maker?", "weight": 0.25 },
+    "need": { "question": "Biggest call handling pain?", "weight": 0.3 },
+    "timeline": { "question": "When needed?", "weight": 0.2 }
   },
-  "scoring": {
-    "hot": 80,
-    "warm": 60,
-    "cold": 40
-  },
-  "routing": {
-    "hot": "reach-3@priority",
-    "warm": "reach-3@standard",
-    "cold": "nurture_sequence"
-  },
-  "enrichment": {
-    "clearbit": true,
-    "website": true,
-    "company_size": true
-  },
-  "outputs": {
-    "qualified_leads": "memory/qualify-7/leads/",
-    "scores": "memory/qualify-7/scores.json"
-  }
+  "scoring": { "hot": 80, "warm": 60, "cold": 40 },
+  "routing": { "hot": "reach-3@priority", "warm": "reach-3@standard", "cold": "nurture" },
+  "outputs": { "qualified_leads": "memory/qualify-7/leads/", "scores": "memory/qualify-7/scores.json" }
 }
