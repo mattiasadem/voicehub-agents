@@ -1,0 +1,23 @@
+{
+  "id": "support-1",
+  "name": "Support-1 (Auto-Responder)",
+  "description": "Auto-resolves tier-1 tickets, escalates complex issues",
+  "model": "kimi",
+  "schedule": "real-time",
+  "trigger": "webhook",
+  "timeout": 60,
+  "enabled": false,
+  "channels": ["email", "chat", "slack"],
+  "capabilities": [
+    "password_reset",
+    "billing_inquiry",
+    "feature_explanation",
+    "bug_report_triage"
+  ],
+  "escalation": {
+    "technical": "engineering",
+    "billing_complex": "finance",
+    "enterprise": "csm"
+  },
+  "output": "/data/.openclaw/workspace/voicehub-agents/memory/support-1/"
+}
