@@ -1,0 +1,26 @@
+{
+  "id": "qualify-7",
+  "name": "Qualify-7 (Lead Qualifier)",
+  "description": "Scores and enriches leads - Clearbit, Hunter, intent scoring",
+  "model": "kimi",
+  "schedule": "*/30 * * * *",
+  "timezone": "Europe/Berlin",
+  "timeout": 120,
+  "enabled": false,
+  "inputs": {
+    "source": "scout-alpha",
+    "webhook": "inbound_leads"
+  },
+  "enrichment": [
+    "clearbit",
+    "hunter.io",
+    "website_analysis"
+  ],
+  "scoring": {
+    "company_size": 20,
+    "intent_signals": 30,
+    "contact_quality": 25,
+    "timing": 25
+  },
+  "output": "/data/.openclaw/workspace/voicehub-agents/memory/qualify-7/"
+}
