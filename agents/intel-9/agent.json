@@ -1,0 +1,25 @@
+{
+  "id": "intel-9",
+  "name": "Intel-9 (Competitive Intelligence)",
+  "description": "Monitors competitors - blogs, pricing, features, alerts on changes",
+  "model": "kimi",
+  "schedule": "0 7 * * *",
+  "timezone": "Europe/Berlin",
+  "timeout": 300,
+  "enabled": false,
+  "competitors": [
+    "smith.ai",
+    "answerconnect.com",
+    "patlive.com",
+    "nexa.com"
+  ],
+  "track": [
+    "pricing_changes",
+    "new_features",
+    "blog_posts",
+    "landing_page_updates",
+    "reviews_sentiment"
+  ],
+  "output": "/data/.openclaw/workspace/voicehub-agents/memory/intel-9/",
+  "alert_threshold": "significant"
+}
