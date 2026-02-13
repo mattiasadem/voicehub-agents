@@ -1,0 +1,27 @@
+{
+  "id": "health-5",
+  "name": "Health-5 (CS Manager)",
+  "description": "Monitors customer health, predicts churn, triggers interventions",
+  "model": "kimi",
+  "schedule": "0 10 * * *",
+  "timezone": "Europe/Berlin",
+  "timeout": 300,
+  "enabled": false,
+  "metrics": [
+    "usage_drop_30pct",
+    "login_frequency",
+    "api_calls_trend",
+    "support_tickets"
+  ],
+  "alerts": {
+    "at_risk": "red",
+    "needs_attention": "yellow",
+    "healthy": "green"
+  },
+  "actions": [
+    "auto_email_checkin",
+    "schedule_call",
+    "escalate_to_human"
+  ],
+  "output": "/data/.openclaw/workspace/voicehub-agents/memory/health-5/"
+}
