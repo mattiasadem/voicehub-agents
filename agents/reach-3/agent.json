@@ -1,26 +1,27 @@
 {
   "id": "reach-3",
-  "name": "Reach-3 (SDR Bot)",
-  "description": "Automated SDR - cold emails, follow-ups, demo booking",
+  "name": "SDR Outreach Agent",
+  "description": "Automated Sales Development Rep - sends cold emails, follows up, books demos",
   "model": "kimi",
-  "schedule": "0 9,14 * * 1-5",
+  "schedule": "0 9,15 * * 1-5",
   "timezone": "Europe/Berlin",
   "timeout": 300,
   "enabled": false,
   "inputs": {
-    "lead_source": "scout-alpha/output",
+    "prospect_list": "memory/scout-alpha/prospects.json",
     "sequence": "3-touch",
     "personalization": true
   },
-  "actions": [
-    "draft_cold_email",
-    "follow_up_sequence", 
-    "book_demo",
-    "update_crm"
+  "outputs": {
+    "drafts": "memory/reach-3/drafts/",
+    "sent": "memory/reach-3/sent/",
+    "replies": "memory/reach-3/replies/"
+  },
+  "daily_limit": 20,
+  "sequence": [
+    { "day": 0, "subject": "Quick question about {{company}} calls", "template": "personalized_v1" },
+    { "day": 3, "subject": "Re: {{company}} - one fix for missed calls", "template": "follow_up_v1" },
+    { "day": 7, "subject": "Last try - VoiceHub for {{company}}", "template": "break_up_v1" }
   ],
-  "output": "/data/.openclaw/workspace/voicehub-agents/memory/reach-3/",
-  "limits": {
-    "emails_per_day": 50,
-    "follow_ups_per_day": 100
-  }
+  "manual_approval": true
 }
