@@ -1,38 +1,15 @@
 {
   "id": "support-1",
   "name": "Support Auto-Responder",
-  "description": "Auto-replies to common support tickets, escalates complex issues",
+  "description": "Auto-replies to tickets, escalates complex issues",
   "model": "kimi",
   "schedule": "webhook",
   "timezone": "Europe/Berlin",
   "timeout": 60,
   "enabled": false,
+  "skills": ["email-sequence", "onboarding-cro"],
   "channels": ["email", "intercom", "slack"],
-  "triggers": [
-    "new_ticket",
-    "customer_reply",
-    "escalation_request"
-  ],
-  "automation_rules": {
-    "billing_issue": { "auto_reply": true, "template": "billing_support" },
-    "setup_help": { "auto_reply": true, "template": "setup_guide", "link_docs": true },
-    "feature_request": { "auto_reply": true, "template": "feature_logged", "log_trello": true },
-    "bug_report": { "auto_reply": false, "escalate_to": "engineering", "priority": "high" },
-    "churn_threat": { "auto_reply": false, "escalate_to": "cs-manager", "alert": true }
-  },
-  "knowledge_base": [
-    "voicehub.x-and/docs",
-    "voicehub.x-and/faq",
-    "voicehub.x-and/tutorials"
-  ],
-  "outputs": {
-    "replies": "memory/support-1/replies/",
-    "escalations": "memory/support-1/escalations/",
-    "analytics": "memory/support-1/analytics.json"
-  },
-  "safety": {
-    "confidence_threshold": 0.8,
-    "unknown_answers": "escalate",
-    "max_auto_replies_per_hour": 50
-  }
+  "knowledge_base": ["voicehub.x-and/docs", "voicehub.x-and/faq"],
+  "safety": { "confidence_threshold": 0.8, "max_auto_per_hour": 50 },
+  "outputs": { "replies": "memory/support-1/replies/", "escalations": "memory/support-1/escalations/" }
 }
