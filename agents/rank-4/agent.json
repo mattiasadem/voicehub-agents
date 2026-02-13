@@ -1,39 +1,13 @@
 {
   "id": "rank-4",
   "name": "SEO Rank Tracker",
-  "description": "Tracks keyword rankings, monitors backlinks, alerts on SEO changes",
+  "description": "Keyword rankings, backlinks, alerts on SEO changes",
   "model": "kimi",
   "schedule": "0 6 * * *",
   "timezone": "Europe/Berlin",
   "timeout": 300,
   "enabled": false,
-  "target_keywords": [
-    "missed call text back",
-    "ai receptionist for smes",
-    "voice ai appointment booking",
-    "after hours call handling",
-    "lead capture automation"
-  ],
-  "domains": ["voicehub.x-and.agency"],
-  "competitors": [
-    "smith.ai",
-    "nexa.ai"
-  ],
-  "tracking": {
-    "rankings": ["google", "bing"],
-    "backlinks": true,
-    "core_web_vitals": true,
-    "page_speed": true
-  },
-  "alerts": {
-    "rank_drop": { "threshold": 3, "positions": "notify" },
-    "rank_gain": { "threshold": 3, "positions": "celebrate" },
-    "new_backlink": { "priority": "medium" },
-    "lost_backlink": { "priority": "high" }
-  },
-  "outputs": {
-    "rankings": "memory/rank-4/rankings.json",
-    "alerts": "memory/rank-4/alerts/",
-    "weekly_report": "memory/rank-4/reports/"
-  }
+  "skills": ["seo-audit", "ab-test-setup", "schema-markup"],
+  "keywords": ["missed call text back", "ai receptionist sme", "voice ai appointment"],
+  "outputs": { "rankings": "memory/rank-4/rankings.json", "alerts": "memory/rank-4/alerts/" }
 }
