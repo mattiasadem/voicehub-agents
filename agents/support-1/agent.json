@@ -1,23 +1,38 @@
 {
   "id": "support-1",
-  "name": "Support-1 (Auto-Responder)",
-  "description": "Auto-resolves tier-1 tickets, escalates complex issues",
+  "name": "Support Auto-Responder",
+  "description": "Auto-replies to common support tickets, escalates complex issues",
   "model": "kimi",
-  "schedule": "real-time",
-  "trigger": "webhook",
+  "schedule": "webhook",
+  "timezone": "Europe/Berlin",
   "timeout": 60,
   "enabled": false,
-  "channels": ["email", "chat", "slack"],
-  "capabilities": [
-    "password_reset",
-    "billing_inquiry",
-    "feature_explanation",
-    "bug_report_triage"
+  "channels": ["email", "intercom", "slack"],
+  "triggers": [
+    "new_ticket",
+    "customer_reply",
+    "escalation_request"
   ],
-  "escalation": {
-    "technical": "engineering",
-    "billing_complex": "finance",
-    "enterprise": "csm"
+  "automation_rules": {
+    "billing_issue": { "auto_reply": true, "template": "billing_support" },
+    "setup_help": { "auto_reply": true, "template": "setup_guide", "link_docs": true },
+    "feature_request": { "auto_reply": true, "template": "feature_logged", "log_trello": true },
+    "bug_report": { "auto_reply": false, "escalate_to": "engineering", "priority": "high" },
+    "churn_threat": { "auto_reply": false, "escalate_to": "cs-manager", "alert": true }
   },
-  "output": "/data/.openclaw/workspace/voicehub-agents/memory/support-1/"
+  "knowledge_base": [
+    "voicehub.x-and/docs",
+    "voicehub.x-and/faq",
+    "voicehub.x-and/tutorials"
+  ],
+  "outputs": {
+    "replies": "memory/support-1/replies/",
+    "escalations": "memory/support-1/escalations/",
+    "analytics": "memory/support-1/analytics.json"
+  },
+  "safety": {
+    "confidence_threshold": 0.8,
+    "unknown_answers": "escalate",
+    "max_auto_replies_per_hour": 50
+  }
 }
