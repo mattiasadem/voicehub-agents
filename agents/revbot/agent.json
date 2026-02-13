@@ -1,0 +1,24 @@
+{
+  "id": "revbot",
+  "name": "RevBot (Revenue Analyst)",
+  "description": "Weekly revenue reports, CAC/LTV, cohort analysis",
+  "model": "kimi",
+  "schedule": "0 9 * * 1",
+  "timezone": "Europe/Berlin",
+  "timeout": 300,
+  "enabled": false,
+  "reports": [
+    "revenue_summary",
+    "cac_ltv_analysis",
+    "cohort_retention",
+    "pipeline_velocity",
+    "forecast"
+  ],
+  "integrations": [
+    "stripe",
+    "hubspot",
+    "product_analytics"
+  ],
+  "output": "/data/.openclaw/workspace/voicehub-agents/memory/revbot/",
+  "format": "slack + email"
+}
