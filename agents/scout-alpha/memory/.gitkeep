@@ -1,0 +1,8 @@
+# Scout-Alpha Memory
+
+This directory stores daily prospect data and lead outputs.
+
+## Structure
+- `YYYY-MM-DD/prospects.json` — Daily prospect lists
+- `YYYY-MM-DD/hot-leads.json` — Aggregated hot leads
+- `backups/` — Archived data

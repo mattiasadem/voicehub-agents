@@ -1,0 +1,8 @@
+# Reach-3 Memory
+
+Enriched leads and email drafts.
+
+## Structure
+- `YYYY-MM-DD/enriched-leads.json` — Contact info added
+- `YYYY-MM-DD/email-drafts/` — Personalized sequences
+- `sent/` — Sent email log
