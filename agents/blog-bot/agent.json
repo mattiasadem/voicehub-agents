@@ -1,20 +1,59 @@
 {
   "id": "blog-bot",
   "name": "Blog Content Agent",
-  "description": "Generates daily SEO blog posts for VoiceHub",
+  "description": "Generates daily SEO blog posts for VoiceHub using content-strategy and copywriting skills",
   "model": "kimi",
   "schedule": "0 8 * * *",
   "timezone": "Europe/Berlin",
   "timeout": 900,
   "enabled": true,
+  "skills": [
+    "content-strategy",
+    "copywriting",
+    "seo-audit"
+  ],
+  "skillPriority": ["content-strategy", "copywriting"],
   "inputs": {
     "topic": "auto",
     "word_count": 1100,
-    "strict_quality": true
+    "strict_quality": true,
+    "pillar": "voice-ai-for-smes"
   },
   "outputs": {
     "post": "data/generated-blog-posts.json",
     "image": "public/blog/"
   },
-  "repo": "/data/.openclaw/workspace/voicehub.x-and"
+  "repo": "/data/.openclaw/workspace/voicehub.x-and",
+  "workflow": [
+    {
+      "step": 1,
+      "action": "load_skill",
+      "skill": "content-strategy",
+      "task": "Plan SEO content for VoiceHub targeting SME keywords"
+    },
+    {
+      "step": 2,
+      "action": "research",
+      "source": "autocomplete",
+      "target": "high-intent-sme-topics"
+    },
+    {
+      "step": 3,
+      "action": "generate",
+      "model": "kimi",
+      "word_count": 1100,
+      "strict": true
+    },
+    {
+      "step": 4,
+      "action": "validate",
+      "checks": ["word_count", "quality", "image"]
+    },
+    {
+      "step": 5,
+      "action": "publish",
+      "git": true,
+      "commit": "chore(blog): publish $(date +%Y-%m-%d)"
+    }
+  ]
 }

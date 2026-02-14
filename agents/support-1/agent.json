@@ -1,0 +1,15 @@
+{
+  "id": "support-1",
+  "name": "Support Auto-Responder",
+  "description": "Auto-replies to tickets, escalates complex issues",
+  "model": "kimi",
+  "schedule": "webhook",
+  "timezone": "Europe/Berlin",
+  "timeout": 60,
+  "enabled": false,
+  "skills": ["email-sequence", "onboarding-cro"],
+  "channels": ["email", "intercom", "slack"],
+  "knowledge_base": ["voicehub.x-and/docs", "voicehub.x-and/faq"],
+  "safety": { "confidence_threshold": 0.8, "max_auto_per_hour": 50 },
+  "outputs": { "replies": "memory/support-1/replies/", "escalations": "memory/support-1/escalations/" }
+}

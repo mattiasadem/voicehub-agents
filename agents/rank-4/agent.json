@@ -1,0 +1,13 @@
+{
+  "id": "rank-4",
+  "name": "SEO Rank Tracker",
+  "description": "Keyword rankings, backlinks, alerts on SEO changes",
+  "model": "kimi",
+  "schedule": "0 6 * * *",
+  "timezone": "Europe/Berlin",
+  "timeout": 300,
+  "enabled": false,
+  "skills": ["seo-audit", "ab-test-setup", "schema-markup"],
+  "keywords": ["missed call text back", "ai receptionist sme", "voice ai appointment"],
+  "outputs": { "rankings": "memory/rank-4/rankings.json", "alerts": "memory/rank-4/alerts/" }
+}

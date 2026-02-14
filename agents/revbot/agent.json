@@ -1,0 +1,14 @@
+{
+  "id": "revbot",
+  "name": "Revenue Operations Analyst",
+  "description": "Weekly revenue reports, CAC/LTV analysis, cohort tracking",
+  "model": "kimi",
+  "schedule": "0 9 * * 1",
+  "timezone": "Europe/Berlin",
+  "timeout": 300,
+  "enabled": false,
+  "skills": ["analytics-tracking", "pricing-strategy", "ab-test-setup"],
+  "metrics": ["mrr", "arr", "cac", "ltv", "ltv_cac_ratio", "churn_rate", "nrr"],
+  "reports": { "weekly": "mrr,churn,top", "monthly": "cohort,forecast" },
+  "outputs": { "reports": "memory/revbot/reports/", "dashboard": "memory/revbot/dashboard.json" }
+}

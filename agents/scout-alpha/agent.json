@@ -1,0 +1,97 @@
+{
+  "id": "scout-alpha",
+  "name": "Lead Scout",
+  "description": "Finds high-intent prospects from job boards, Reddit, Twitter using social-content and email-sequence skills",
+  "model": "kimi",
+  "schedule": "0 */4 * * *",
+  "timezone": "Europe/Berlin",
+  "timeout": 600,
+  "enabled": true,
+  "skills": [
+    "social-content",
+    "email-sequence",
+    "competitor-alternatives"
+  ],
+  "sources": [
+    "reddit:r/smallbusiness",
+    "reddit:r/entrepreneur",
+    "reddit:r/startups",
+    "twitter:search",
+    "indeed:jobs"
+  ],
+  "keywords": [
+    "missed calls",
+    "receptionist",
+    "call handling",
+    "hiring receptionist",
+    "need answering service",
+    "voicemail",
+    "phone anxiety",
+    "after hours calls"
+  ],
+  "signals": {
+    "hot": ["hiring receptionist", "call center", "missed calls cost"],
+    "warm": ["phone answering", "stress", " overwhelm"],
+    "cold": ["customer service", "phone general"]
+  },
+  "enrichment": {
+    "find_contacts": true,
+    "preferred": ["CEO", "founder", "owner", "operations director"],
+    "fallback": ["office manager"]
+  },
+  "email_drafting": {
+    "enabled": true,
+    "skill": "email-sequence",
+    "template": "cold_outreach_sme",
+    "personalization": true,
+    "max_length": 150
+  },
+  "output": "/data/.openclaw/workspace/voicehub-agents/memory/scout-alpha/",
+  "daily_target": 10,
+  "max_per_run": 15,
+  "workflow": [
+    {
+      "step": 1,
+      "action": "load_skill",
+      "skill": "social-content",
+      "task": "Research Reddit/Twitter for SME receptionist pain points"
+    },
+    {
+      "step": 2,
+      "action": "search",
+      "sources": ["reddit", "twitter", "indeed"],
+      "queries": "auto-generated from keywords"
+    },
+    {
+      "step": 3,
+      "action": "score",
+      "method": "bant",
+      "output": ["hot", "warm", "cold"]
+    },
+    {
+      "step": 4,
+      "action": "enrich",
+      "find": ["company", "website", "email"],
+      "persona": ["CEO", "founder"]
+    },
+    {
+      "step": 5,
+      "action": "load_skill",
+      "skill": "email-sequence",
+      "task": "Draft personalized cold email using sequence templates"
+    },
+    {
+      "step": 6,
+      "action": "save",
+      "format": "json",
+      "path": "memory/scout-alpha/%Y%m%d-%H%M-prospects.json"
+    },
+    {
+      "step": 7,
+      "action": "report",
+      "summary": ["hot_count", "warm_count", "sample_emails"]
+    }
+  ],
+  "approval_required": false,
+  "auto_save": true
+}
