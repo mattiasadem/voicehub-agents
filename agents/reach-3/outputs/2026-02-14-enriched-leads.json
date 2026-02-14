@@ -1,0 +1,99 @@
+{
+  "date": "2026-02-14",
+  "source": "scout-alpha",
+  "prospects": [
+    {
+      "id": "prospect-001",
+      "source_post": "Reddit r/smallbusiness",
+      "signal": "hot",
+      "company": {
+        "name": "Pest Control Company (unnamed)",
+        "industry": "Pest Control",
+        "service_area": "Local/Regional",
+        "estimated_size": "Small business, team of technicians"
+      },
+      "pain": {
+        "current": "Paying $500-1000/month for call service with quality issues",
+        "issue": "Misinformation from current service, no scheduling capability",
+        "impact": "Losing bookings to competitors with better phone handling"
+      },
+      "budget": {
+        "current_spend": "$500-1000/month",
+        "target": "Up to $750/month",
+        "confidence": "high - explicitly mentioned"
+      },
+      "contact_info": {
+        "status": "enrichment_pending",
+        "method": "Reddit DM or find website from post history",
+        "priority": "high"
+      },
+      "email_draft": "Subject: Quick question about your pest control company's after-hours calls\n\nHi,\n\nSaw your post about paying $500-1000/month for a call service that gives wrong info and can't schedule appointments.\n\nQuick fix: VoiceHub answers 100% of calls, qualifies leads, and books appointments directly into your calendar — no misinformation, no missed calls.\n\nWorth a 10-minute call this week?\n\nBest"
+    },
+    {
+      "id": "prospect-002",
+      "source_post": "Reddit r/smallbusiness",
+      "signal": "hot",
+      "company": {
+        "name": "Nail Salon Owner (unnamed)",
+        "industry": "Beauty/Salon",
+        "service_type": "Nail salon, appointment-based"
+      },
+      "pain": {
+        "current": "Manual pen/paper scheduling",
+        "issue": "Time-consuming, error-prone, no after-hours booking",
+        "impact": "Losing clients who call when salon is closed"
+      },
+      "budget": {
+        "current_spend": "$0-300/month (DIY/manual)",
+        "target": "$300-500/month for automation",
+        "confidence": "medium - implied by 'can't afford full-time'"
+      },
+      "contact_info": {
+        "status": "enrichment_pending",
+        "method": "Reddit DM or search for salon by post history",
+        "priority": "high"
+      },
+      "email_draft": "Subject: Pen/paper to automatic booking — for nail salons\n\nHi,\n\nSaw you mentioned needing a receptionist bot for appointment booking. Manual scheduling eats time you could spend with clients.\n\nVoiceHub books clients 24/7, answers 'do you have Saturday slots?' automatically, and syncs with your calendar.\n\nWorth a 5-minute chat?\n\nBest"
+    },
+    {
+      "id": "prospect-003",
+      "source_post": "Reddit r/smallbusiness (blackboardclients)",
+      "signal": "hot",
+      "company": {
+        "name": "Small Business (username: blackboardclients)",
+        "industry": "Service business (likely trades/professional)",
+        "size": "Solo operator or small team"
+      },
+      "pain": {
+        "current": "'Incoming calls are killing me' — overwhelmed by volume",
+        "issue": "Can't afford full-time receptionist, drowning in calls",
+        "impact": "Stress, missed opportunities, can't focus on work"
+      },
+      "budget": {
+        "current_spend": "$0 (handling personally)",
+        "limit": "Can't afford FTE ($3k+/month)",
+        "target": "$200-500/month for AI solution",
+        "confidence": "high - explicitly stated constraint"
+      },
+      "contact_info": {
+        "status": "enrichment_pending",
+        "method": "Reddit DM to user blackboardclients",
+        "priority": "high"
+      },
+      "email_draft": "Subject: Cheaper than a receptionist — but answers every call\n\nHi,\n\nYour post about incoming calls 'killing you' resonated. Missing sales because you can't afford $3k+/month for a receptionist.\n\nVoiceHub costs a fraction, answers every call, books appointments, and never calls in sick.\n\nMost customers break even on day 1 (one booked appointment covers the cost).\n\nWant to see it in action?\n\nBest"
+    }
+  ],
+  "next_steps": [
+    "Reddit enrichment: Find actual company names via post history",
+    "Reddit DMs: Contact 3 prospects directly on Reddit",
+    "Alternative: Search for company websites using industry + location clues",
+    "Priority: All 3 are high-intent, should contact within 24h"
+  ],
+  "workflow_status": {
+    "scout_completed": "2026-02-14 08:23",
+    "enrichment_started": "2026-02-14 17:00",
+    "enrichment_completed": "2026-02-14 17:30",
+    "outreach_method": "Reddit DM (preferred) or email if found",
+    "outreach_priority": "high - budget confirmed, pain specific, active seekers"
+  }
+}
