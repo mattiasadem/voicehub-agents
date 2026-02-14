@@ -21,10 +21,10 @@
 - [ ] Target: 10 prospects, 2+ hot
 
 **reach-3** (SDR)
-- [ ] Enrich pest control company (find email)
-- [ ] Enrich nail salon (find email)
-- [ ] Enrich small business (blackboardclients)
-- [ ] Draft personalized sequences
+- [x] Enrich pest control company (find email)
+- [x] Enrich nail salon (find email)
+- [x] Enrich small business (blackboardclients)
+- [x] Draft personalized sequences
 
 **ghost-9** (Social)
 - [ ] Tomorrow 08:00: Draft LinkedIn post from blog

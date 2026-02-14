@@ -1,0 +1,172 @@
+{
+  "id": "PageSEO-10",
+  "name": "Programmatic SEO Generator",
+  "description": "Creates SEO-optimized pages at scale using templates, data, and the 12 playbook patterns. Generates location pages, industry pages, comparison pages, and use-case pages.",
+  "model": "kimi",
+  "schedule": "0 11 * * 1,4",
+  "timezone": "Europe/Berlin",
+  "timeout": 600,
+  "enabled": true,
+  "skills": ["programmatic-seo", "seo-audit", "schema-markup", "content-strategy"],
+  "playbooks": [
+    {
+      "name": "locations",
+      "enabled": true,
+      "template": "ai-receptionist-city",
+      "url_pattern": "/locations/{city}/{state}-ai-receptionist",
+      "data_source": "us-cities.json",
+      "priority_cities": ["new-york", "los-angeles", "chicago", "houston", "phoenix", "philadelphia", "san-antonio", "san-diego", "dallas", "san-jose"],
+      "min_population": 100000,
+      "max_pages": 100
+    },
+    {
+      "name": "industries",
+      "enabled": true,
+      "template": "industry-use-case",
+      "url_pattern": "/industries/{industry}",
+      "industries": [
+        "healthcare", "dental", "medical-spa", "law-firm", "accounting", "bookkeeping",
+        "real-estate", "property-management", "construction", "electrician", "plumbing", "hvac",
+        "pest-control", "salon", "spa", "nail-salon", "barber", "fitness", "yoga-studio",
+        "restaurant", "cafe", "catering", "event-planning", "photography", "pet-services",
+        "car-dealership", "auto-repair", "cleaning-services", "security-company", "consulting"
+      ],
+      "max_pages": 50
+    },
+    {
+      "name": "competitor-comparisons",
+      "enabled": true,
+      "template": "vs-comparison",
+      "url_pattern": "/compare/voicehub-vs-{competitor}",
+      "competitors": ["smithai", "moneypenny", "nexa", "answerconnect", "patlive"],
+      "max_pages": 10
+    },
+    {
+      "name": "integrations",
+      "enabled": true,
+      "template": "integration-page",
+      "url_pattern": "/integrations/voicehub-{platform}",
+      "platforms": ["slack", "salesforce", "hubspot", "zapier", "calendly", "google-calendar", "mailchimp", "activecampaign"],
+      "max_pages": 20
+    },
+    {
+      "name": "use-cases",
+      "enabled": true,
+      "template": "use-case",
+      "url_pattern": "/use-cases/{use-case}",
+      "use_cases": [
+        "after-hours-call-answering",
+        "appointment-booking",
+        "lead-capture",
+        "missed-call-text-back",
+        "emergency-call-routing",
+        "order-taking",
+        "qualification-filtering",
+        "overflow-call-handling"
+      ],
+      "max_pages": 15
+    }
+  ],
+  "content_rules": {
+    "min_word_count": 800,
+    "unique_value_per_page": true,
+    "include_schema_markup": true,
+    "include_internal_links": true,
+    "canonical_type": "self",
+    "meta_template": {
+      "title": "{page_type} | VoiceHub - AI Phone Assistant",
+      "description_length": 155,
+      "og_image": true
+    }
+  },
+  "data_sources": {
+    "cities": "data/us-cities-100k-plus.json",
+    "industries": "config/industries-voicehub.json",
+    "competitors": "config/competitors.json",
+    "integrations": "config/integrations.json"
+  },
+  "outputs": {
+    "pages_dir": "voicehub.x-and/src/pages/programmatic/",
+    "sitemap": "public/sitemap-programmatic.xml",
+    "analytics": "memory/PageSEO-10/analytics/"
+  },
+  "quality_checks": {
+    "thin_content_detection": true,
+    "duplicate_content_check": true,
+    "keyword_cannibalization_check": true,
+    "manual_review_required": false
+  },
+  "workflow": [
+    {
+      "step": 1,
+      "action": "load_skill",
+      "skill": "programmatic-seo",
+      "task": "Load programmatic SEO playbooks and content guidelines"
+    },
+    {
+      "step": 2,
+      "action": "load_skill",
+      "skill": "seo-audit",
+      "task": "Load SEO quality check templates"
+    },
+    {
+      "step": 3,
+      "action": "select_playbook",
+      "criteria": "rotation_based_on_day_and_priority"
+    },
+    {
+      "step": 4,
+      "action": "load_data",
+      "source": "dynamic_based_on_playbook",
+      "batch_size": 10
+    },
+    {
+      "step": 5,
+      "action": "generate_pages",
+      "method": "template_variable_replacement_with_unique_sections",
+      "localize": true,
+      "include_industry_stats": true
+    },
+    {
+      "step": 6,
+      "action": "quality_check",
+      "checks": ["word_count", "unique_content", "internal_links", "schema_markup"]
+    },
+    {
+      "step": 7,
+      "action": "save",
+      "format": "markdown_to_html",
+      "path": "voicehub.x-and/src/pages/programmatic/{playbook}/",
+      "subdirs_by_variable": true
+    },
+    {
+      "step": 8,
+      "action": "update_sitemap",
+      "sitemap_path": "public/sitemap-programmatic.xml"
+    },
+    {
+      "step": 9,
+      "action": "generate_internal_links",
+      "method": "hub_and_spoke_related_pages"
+    },
+    {
+      "step": 10,
+      "action": "git_commit",
+      "message": "seo(programmatic): add {count} {playbook} pages",
+      "branch": "main",
+      "auto_merge": false
+    },
+    {
+      "step": 11,
+      "action": "report",
+      "summary": ["pages_generated", "playbook_used", "sample_urls", "quality_score"]
+    }
+  ],
+  "manual_approval": false,
+  "auto_deploy": false,
+  "rotation_schedule": {
+    "monday": ["locations", "integrations"],
+    "thursday": ["industries", "use-cases"],
+    "monthly_first_monday": ["competitor-comparisons"]
+  }
+}

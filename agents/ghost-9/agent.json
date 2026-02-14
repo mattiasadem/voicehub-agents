@@ -6,7 +6,7 @@
   "schedule": "0 8 * * *",
   "timezone": "Europe/Berlin",
   "timeout": 300,
-  "enabled": false,
+  "enabled": true,
   "skills": [
     "social-content",
     "content-strategy",

@@ -6,7 +6,7 @@
   "schedule": "0 6 * * *",
   "timezone": "Europe/Berlin",
   "timeout": 300,
-  "enabled": false,
+  "enabled": true,
   "skills": ["seo-audit", "ab-test-setup", "schema-markup"],
   "keywords": ["missed call text back", "ai receptionist sme", "voice ai appointment"],
   "outputs": { "rankings": "memory/rank-4/rankings.json", "alerts": "memory/rank-4/alerts/" }

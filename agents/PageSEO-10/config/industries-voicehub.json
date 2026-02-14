@@ -1,0 +1,62 @@
+{
+  "industries": [
+    {
+      "slug": "healthcare",
+      "name": "Healthcare",
+      "sub_industries": ["medical-practice", "dental", "medical-spa", "physical-therapy"],
+      "pain_points": ["missed patient calls", "after-hours emergencies", "appointment scheduling"],
+      "avg_monthly_calls": "500-2000",
+      "common_hours": "8am-6pm"
+    },
+    {
+      "slug": "dental",
+      "name": "Dental Practices",
+      "pain_points": ["appointment bookings", "new patient intake", "emergency calls"],
+      "avg_monthly_calls": "300-800",
+      "voice_use_cases": ["schedule cleaning", "emergency toothache", "insurance verification"]
+    },
+    {
+      "slug": "legal",
+      "name": "Law Firms",
+      "sub_industries": ["personal-injury", "family-law", "criminal-defense", "estate-planning"],
+      "pain_points": ["intake qualification", "after-hours emergencies", "high-value leads"],
+      "avg_monthly_calls": "200-1000",
+      "conversion_value": "high"
+    },
+    {
+      "slug": "real-estate",
+      "name": "Real Estate",
+      "sub_industries": ["brokerage", "property-management", "investment"],
+      "pain_points": ["buyer inquiries", "showing scheduling", "lease applications"],
+      "peak_hours": "evenings and weekends"
+    },
+    {
+      "slug": "trades",
+      "name": "Home Services & Trades",
+      "sub_industries": ["plumbing", "hvac", "electrical", "roofing", "pest-control"],
+      "pain_points": ["emergency calls", "dispatch coordination", "quote requests"],
+      "avg_response_time_critical": "< 5 minutes"
+    },
+    {
+      "slug": "salon-spa",
+      "name": "Salon & Spa",
+      "sub_industries": ["hair-salon", "nail-salon", "spa", "barber"],
+      "pain_points": ["appointment booking", "cancellations", "product inquiries"],
+      "booking_percentage": "70%+"
+    },
+    {
+      "slug": "restaurant",
+      "name": "Restaurants & Food",
+      "sub_industries": ["fine-dining", "casual", "catering"],
+      "pain_points": ["reservations", "takeout orders", "event inquiries"],
+      "peak_times": "lunch and dinner rushes"
+    },
+    {
+      "slug": "consulting",
+      "name": "Professional Services",
+      "sub_industries": ["consulting", "accounting", "bookkeeping", "insurance"],
+      "pain_points": ["consultation booking", "lead qualification", "partnership inquiries"],
+      "avg_deal_size": "medium-high"
+    }
+  ]
+}
